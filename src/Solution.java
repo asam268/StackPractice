@@ -54,37 +54,46 @@ public class Solution {
             for(int i = 0; i < input.length(); i++){
                 stack.push(input.charAt(i));
             }
-            if(stack.search('(') == -1 && stack.search(')') == -1)
-                parenthesis = true;
-            if(stack.search('{') == -1 && stack.search('}') == -1)
-                curly = true;
-            if(stack.search('[') == -1 && stack.search(']') == -1)
-                bracket = true;
+//            System.out.println("Size: " + stack.size());
+            if (stack.size() % 2 == 0) {
+                if (stack.search('(') == -1 && stack.search(')') == -1)
+                    parenthesis = true;
+                if (stack.search('{') == -1 && stack.search('}') == -1)
+                    curly = true;
+                if (stack.search('[') == -1 && stack.search(']') == -1)
+                    bracket = true;
 
-            while(!stack.empty()){
-                char point = stack.pop();
-
-                if(point == ')'){
+                while (!stack.empty()) {
+                    char point = stack.pop();
+                    if (point == ')') {
 //                    System.out.println("found parenthesis");
-                    if(stack.search('(') > - 1 && stack.search('(') % 2 != 0) {
-                        parenthesis = true;
-//                        System.out.println("p: " + stack.search('('));
+                        if (stack.search('(') > -1 && stack.search('(') % 2 != 0) {
+                            parenthesis = true;
+//                            System.out.println("p: " + stack.search('('));
+                        } else
+                            parenthesis = false;
+                    }
+                    if (point == ']') {
+                        if (stack.search('[') > -1 && stack.search('[') % 2 != 0) {
+                            bracket = true;
+//                            System.out.println("b: " + stack.search('['));
+                        } else
+                            bracket = false;
+                    }
+                    if (point == '}') {
+                        if (stack.search('{') > -1 && stack.search('{') % 2 != 0) {
+                            curly = true;
+//                            System.out.println("c: " + stack.search('{'));
+                        } else
+                            curly = false;
                     }
                 }
-                if(point == ']'){
-                    if(stack.search('[') > - 1 && stack.search('[') % 2 != 0) {
-                        bracket = true;
-//                        System.out.println("b: " + stack.search('['));
-                    }
-                }
-                if(point == '}'){
-                    if(stack.search('{') > - 1 && stack.search('{') % 2 != 0) {
-                        curly = true;
-//                        System.out.println("c: " + stack.search('{'));
-                    }
-                }
+                System.out.println(parenthesis && bracket && curly);
+            } else {
+                while (!stack.empty())
+                    stack.pop();
+                System.out.println("false");
             }
-            System.out.println(parenthesis && bracket && curly);
         }
     }
 }
